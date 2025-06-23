@@ -23,7 +23,7 @@ Este es el **Backend** de la landing page de Pixel Studio, una página moderna, 
 ## 🚀 Pasos para correr el backend
 
 ### Nota:
-### Para correr el proyecto debes encender tu XAMPP y ver que te funcione el phpmyadmin, el backend se encarga de crear la base de datos y las tabla.
+### Para correr el proyecto debes encender tu XAMPP y ver que te funcione el phpmyadmin, el backend se encarga de crear la base de datos y la tabla.
 
 ### 1. Clonar el repositorio
 ```bash
@@ -31,7 +31,7 @@ git clone https://github.com/NolbertoChagala/Backend-Pixel.git
 ```
 ## 2.- Entras a la carpeta correspondiente
 ```bash
-cd PixelStudio
+cd Backend-Pixel
 ```
 ## 3.- Instalas todas las dependencias del proyecto
 ```bash
