@@ -1,0 +1,3 @@
+# Ignora dependencias
+node_modules/
+.env
