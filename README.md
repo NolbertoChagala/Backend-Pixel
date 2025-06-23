@@ -27,7 +27,7 @@ Este es el **Backend** de la landing page de Pixel Studio, una página moderna, 
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/PixelStudio.git
+git clone https://github.com/NolbertoChagala/Backend-Pixel.git
 ```
 ## 2.- Entras a la carpeta correspondiente
 ```bash
@@ -35,7 +35,16 @@ cd PixelStudio
 ```
 ## 3.- Instalas todas las dependencias del proyecto
 ```bash
-Npm Install
+npm install
+```
+## 4.- Creas tus variables de entorno, según tus accesos.
+```bash
+DB_HOST=localhost
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+DB_PORT=
+PORT=
 ```
 ## 4.- Inicializas el proyecto
 ```bash
