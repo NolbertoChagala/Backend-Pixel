@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const validator = require('validator');
 const router = express.Router();
 const Contact = require('../models/Contact');
 
@@ -13,30 +14,48 @@ router.post('/contact', async (req, res) => {
   }
 
   try {
-    // Validar el token con Google
-    const captchaRes = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify`,
-      null,
-      {
-        params: {
-          secret: RECAPTCHA_SECRET_KEY,
-          response: token,
-        },
-      }
-    );
+    // Validar el token de reCAPTCHA con Google
+    const captchaRes = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
+      params: {
+        secret: RECAPTCHA_SECRET_KEY,
+        response: token,
+      },
+    });
 
     const { success } = captchaRes.data;
-
     if (!success) {
       return res.status(400).json({ error: 'Falló la validación del CAPTCHA' });
     }
 
-    // CAPTCHA válido, guardar el contacto
+    // Sanitización
+    const cleanName = validator.escape(Nombre_Completo.trim());
+    const cleanEmail = validator.normalizeEmail(Correo_Electronico);
+    const cleanPhone = Telefono.replace(/[^\d]/g, "");
+    const cleanMessage = validator.escape(Mensaje.trim());
+
+    // Validaciones adicionales
+    if (!validator.isLength(cleanName, { min: 3 })) {
+      return res.status(400).json({ error: "Nombre inválido" });
+    }
+
+    if (!validator.isEmail(cleanEmail)) {
+      return res.status(400).json({ error: "Correo inválido" });
+    }
+
+    if (!validator.isLength(cleanPhone, { min: 10, max: 15 })) {
+      return res.status(400).json({ error: "Teléfono inválido" });
+    }
+
+    if (!validator.isLength(cleanMessage, { min: 10 })) {
+      return res.status(400).json({ error: "Mensaje muy corto" });
+    }
+
+    // Crear y guardar
     const contact = await Contact.create({
-      Nombre_Completo,
-      Correo_Electronico,
-      Telefono,
-      Mensaje,
+      Nombre_Completo: cleanName,
+      Correo_Electronico: cleanEmail,
+      Telefono: cleanPhone,
+      Mensaje: cleanMessage,
     });
 
     res.status(201).json({ message: 'Mensaje guardado correctamente', contact });
