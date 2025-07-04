@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
+// Importa la conexión y función para inicializar la DB
 const { sequelize, initializeDatabase } = require('./config/initDB');
 
 const contactRoutes = require('./routes/contact');
@@ -35,8 +37,13 @@ app.use('/api', dashboardRoutes);
 
 async function startServer() {
   try {
+    // Inicializa la conexión a la base de datos
     await initializeDatabase();
-    await sequelize.sync();
+
+    // Sincroniza todos los modelos (crea/actualiza tablas)
+    await sequelize.sync({ alter: true });
+
+    // Levanta el servidor
     app.listen(PORT, () => {
       console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
     });
