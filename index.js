@@ -43,11 +43,9 @@ app.use("/api", dashboardRoutes);
 async function startServer() {
   try {
     await initializeDatabase();
-    await sequelize.sync();
-    console.log("Base de datos y tablas listas");
-
+    await sequelize.sync(); // Crea tablas si no existen
     app.listen(PORT, () => {
-      console.log(`Servidor backend en http://localhost:${PORT}`);
+      console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
     });
   } catch (err) {
     console.error("Error al iniciar servidor:", err);
