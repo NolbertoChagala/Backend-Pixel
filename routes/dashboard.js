@@ -19,7 +19,7 @@ router.get("/users", async (req, res) => {
 router.get("/contact", async (req, res) => {
   try {
     const leads = await Contact.findAll({ 
-      attributes: ['id', 'Nombre_Completo', 'Correo_Electronico', 'Telefono', 'Mensaje'],
+      attributes: ['id', 'Nombre_Completo', 'Correo_Electronico', 'Telefono', 'Mensaje', 'status'],
     });
     res.json(leads);
   } catch (error) {

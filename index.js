@@ -17,7 +17,7 @@ app.use(
     origin: function (origin, callback) {
       const allowedOrigins = [
         "http://localhost:5173",
-        "https://frontend-pixel.vercel.app"
+        "https://frontend-pixel.vercel.app",
       ];
 
       // Permitir requests sin origen (por ejemplo curl o postman)
@@ -29,11 +29,10 @@ app.use(
         return callback(new Error("CORS no permite este origen."));
       }
     },
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 
 app.use(bodyParser.json());
 app.use("/api", contactRoutes);

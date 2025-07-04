@@ -17,10 +17,11 @@ const Contact = sequelize.define('Contact', {
   Mensaje: {
     type: DataTypes.TEXT,
     allowNull: false,
-  }
-}, {
-  tableName: 'contacts',
-  timestamps: false
+  },
+  status: {
+    type: DataTypes.ENUM('pendiente', 'en_proceso', 'Atendido'),
+    defaultValue: 'pendiente',
+  },
 });
 
 module.exports = Contact;
