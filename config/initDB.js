@@ -1,32 +1,27 @@
-// config/initDB.js
-const { Sequelize } = require("sequelize");
-require("dotenv").config();
+require('dotenv').config();
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: "mysql",
-  dialectOptions: {
-    // Esto permite conexiones SSL sin rechazar si no hay certificado válido,
-    // importante para conexiones seguras en servicios cloud
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-  logging: false, // Desactivar logs SQL
+const { Sequelize } = require('sequelize');
+
+const connectionString = process.env.DATABASE_URL || 
+  `mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
+const sequelize = new Sequelize(connectionString, {
+  dialect: 'mysql',
+  logging: false,
   pool: {
-    max: 10,      // máximo de conexiones simultáneas
-    min: 0,       // mínimo de conexiones abiertas en pool
-    acquire: 30000, // tiempo máximo para intentar obtener una conexión antes de error
-    idle: 10000,  // tiempo que una conexión puede estar inactiva antes de ser cerrada
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
   },
 });
 
 async function initializeDatabase() {
   try {
     await sequelize.authenticate();
-    console.log("✅ Base de datos conectada correctamente");
+    console.log('✅ Base de datos conectada correctamente');
   } catch (error) {
-    console.error("❌ Error al conectar la base de datos:", error);
+    console.error('❌ Error al conectar la base de datos:', error);
     throw error;
   }
 }
