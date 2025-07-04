@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const initializeDatabase = require("./config/initDB");
+const { sequelize, initializeDatabase } = require("./config/initDB");
 const sequelize = require("./config/database");
 const contactRoutes = require("./routes/contact");
 const authRoutes = require("./routes/auth");
