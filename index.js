@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { sequelize, initializeDatabase } = require("./config/initDB");
-const sequelize = require("./config/database");
 const contactRoutes = require("./routes/contact");
 const authRoutes = require("./routes/auth");
 const protectedRoutes = require("./routes/protected");
