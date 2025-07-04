@@ -3,7 +3,7 @@ require('dotenv').config();
 
 async function initializeDatabase() {
   if (process.env.MYSQL_URL) {
-    const connection = await mysql.createConnection(process.env.MYSQL_URL);
+    const connection = await mysql.createConnection(process.env.DATABASE_URL);
     console.log('Base de datos conectada correctamente con MYSQL_URL ✅');
     return connection;
   }
