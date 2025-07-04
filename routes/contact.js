@@ -33,7 +33,6 @@ router.post('/contact', async (req, res) => {
     const cleanPhone = Telefono.replace(/[^\d]/g, "");
     const cleanMessage = validator.escape(Mensaje.trim());
 
-    // Validaciones adicionales
     if (!validator.isLength(cleanName, { min: 3 })) {
       return res.status(400).json({ error: "Nombre inválido" });
     }
